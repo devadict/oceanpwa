@@ -25,7 +25,7 @@ export default {
   mounted() {
     window.addEventListener("message", function (event) {
       // Check the origin of the message
-      if (event.origin === "https://your-first-website-url.com") {
+      if (event.origin === "https://peaceful-khapse-9704d6.netlify.app/") {
         // Check the message data
         if (event.data === "executeBonjourFunction") {
           // Execute the function associated with the button with id="bonjour"
