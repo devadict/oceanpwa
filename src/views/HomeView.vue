@@ -1,3 +1,4 @@
+<!-- Second website (Vue.js) -->
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
@@ -23,29 +24,32 @@ export default {
     };
   },
   mounted() {
-    window.addEventListener("message", function (event) {
-      // Check the origin of the message
-      if (event.origin === "https://peaceful-khapse-9704d6.netlify.app/") {
-        // Check the message data
-        if (event.data === "executeBonjourFunction") {
-          // Execute the function associated with the button with id="bonjour"
-          document.getElementById("bonjour").click();
-        }
-      }
-    }),
-      window.addEventListener("beforeinstallprompt", (event) => {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        event.preventDefault();
+    window.addEventListener("beforeinstallprompt", (event) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      event.preventDefault();
 
-        // Stash the event so it can be triggered later.
-        this.deferredPrompt = event;
+      // Stash the event so it can be triggered later.
+      this.deferredPrompt = event;
 
-        // Update UI to notify the user that the app can be installed
-        // You can show a button or any other UI element to prompt the user to install the app.
-        // For example, you can set a data property like showInstallButton to true and use v-if in your template.
-      });
+      // Update UI to notify the user that the app can be installed
+    });
+
+    // Event listener to receive messages
+    window.addEventListener("message", this.receiveMessage, false);
   },
   methods: {
+    receiveMessage(event) {
+      // Check the origin of the sender
+      if (event.origin === "https://peaceful-khapse-9704d6.netlify.app") {
+        // Process the received data
+        const { action } = event.data;
+
+        // Call the installApp function if the action is 'installApp'
+        if (action === "installApp") {
+          this.installApp();
+        }
+      }
+    },
     installApp() {
       // Show the install prompt
       if (this.deferredPrompt) {
@@ -65,5 +69,13 @@ export default {
       }
     },
   },
+  beforeDestroy() {
+    // Remove the event listener when the component is destroyed
+    window.removeEventListener("message", this.receiveMessage);
+  },
 };
 </script>
+
+<style>
+/* Your styles go here */
+</style>
