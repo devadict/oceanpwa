@@ -7,7 +7,7 @@
       id="bonjour"
       href="https://shiny-unicorn-80d9bd.netlify.app/#/"
     >
-      Install App
+      ReInstall App
     </a>
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
