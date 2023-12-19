@@ -1,17 +1,13 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <a
-      v-if="deferredPrompt"
-      @click="installApp"
-      id="bonjour"
-      href="https://shiny-unicorn-80d9bd.netlify.app/#/"
-    >
-      ReInstall App
-    </a>
+    <button v-if="deferredPrompt" @click="installApp" id="bonjour">
+      Install App Simple
+    </button>
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
+
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
@@ -33,13 +29,14 @@ export default {
 
       // Stash the event so it can be triggered later.
       this.deferredPrompt = event;
+
+      // Update UI to notify the user that the app can be installed
+      // You can show a button or any other UI element to prompt the user to install the app.
+      // For example, you can set a data property like showInstallButton to true and use v-if in your template.
     });
   },
   methods: {
-    installApp(event) {
-      // Prevent the default action of the link
-      event.preventDefault();
-
+    installApp() {
       // Show the install prompt
       if (this.deferredPrompt) {
         this.deferredPrompt.prompt();
